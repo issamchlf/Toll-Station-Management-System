@@ -77,6 +77,6 @@ class StationController extends Controller
             return response()->json(['message' => 'Station not found'], 404);
         }
         $station->delete();
-        return response()->json(null, 204); 
+        return response()->json(['message' => 'Station deleted'], 200); 
     }
 }
