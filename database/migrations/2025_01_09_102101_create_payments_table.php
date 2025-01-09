@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-			$table->foreignId('vehicle_id')->constrained();
-			$table->foreignId('station_id')->constrained();
-            $table->integer('fee_paid');
-			$table->date('payment_date');
+            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
+            $table->foreignId('station_id')->constrained()->onDelete('cascade');
+            $table->decimal('fee', 10, 2);
             $table->string('description');
             $table->timestamps();
         });

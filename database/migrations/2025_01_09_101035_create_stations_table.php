@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
 			$table->string('city');
-            $table->integer('total_collected_fee');
+            $table->decimal('total_collected_fee', 10, 2)->default(0);
             $table->timestamps();
         });
     }
