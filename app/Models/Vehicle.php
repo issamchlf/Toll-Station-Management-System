@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Model
 {
-    protected $fillable = ['license_plate', 'brand', 'model', 'total_fee_paid'];
+    protected $fillable = ['license_plate', 'brand', 'model', 'axles', 'total_fee_paid'];
 
     public function Stations()
     {

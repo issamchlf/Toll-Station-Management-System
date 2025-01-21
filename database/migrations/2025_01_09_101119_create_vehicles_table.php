@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('license_plate');
             $table->string('brand');
             $table->enum('vehicle_type', ['car', 'motorcycle', 'truck']);
+            $table->integer('axles');
             $table->decimal('total_fee_paid', 10, 2)->default(0);
             $table->timestamps();
         });
