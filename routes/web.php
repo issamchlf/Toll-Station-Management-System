@@ -12,6 +12,5 @@ Route::get('stations', [StationController::class, 'index'])->name('stations');
 Route::get('/stations/{station}', [StationController::class, 'show'])->name('stations.show');
 
 Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles');
-Route::get('vehicle.show', [VehicleController::class, 'show'])->name('vehicle.show');
 
 
