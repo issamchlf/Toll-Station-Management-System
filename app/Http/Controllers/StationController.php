@@ -14,7 +14,7 @@ class StationController extends Controller
     public function index()
     {
         $stations = Station::all();
-        return view('stations.index', compact('stations'));
+        return view('stations', compact('stations'));
     }
 
     public function show(Station $station)

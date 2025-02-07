@@ -13,7 +13,7 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::all();
-        return view('vehicles.index', compact('vehicles'));
+        return view('vehicles', compact('vehicles'));
     }
 
     public function show(Vehicle $vehicle)
