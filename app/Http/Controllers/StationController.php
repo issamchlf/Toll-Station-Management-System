@@ -31,5 +31,7 @@ class StationController extends Controller
        $vehicle = Vehicle::firstOrCreate(['license_plate' => $request->license_plate], [
         'vehicle_type' => $request->vehicle_type,
     ]);
+    $station = Station::find($request->station_id);
+    $station->vehicles()->attach($vehicle->id, ['axles' => $request->axles]);
     }
 }
