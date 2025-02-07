@@ -33,6 +33,7 @@ class VehicleController extends Controller
             'license_plate' => 'required',
             'brand' => 'required',
             'vehicle_type' => 'required|in:car,motorcycle,truck',
+            'axles' => 'required|numeric',
             'total_fee_paid' => 'required|numeric',
         ]);
 
@@ -70,6 +71,7 @@ class VehicleController extends Controller
             'license_plate' => 'required',
             'brand' => 'required',
             'vehicle_type' => 'required|in:car,motorcycle,truck',
+            'axles' => 'required|numeric',
             'total_fee_paid' => 'required|numeric',
         ]);
 
