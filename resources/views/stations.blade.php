@@ -35,6 +35,11 @@
                         </li>
                     @endforeach
                 </ul>
+                <div class="mt-4">
+                    <a href="{{ route('stations.show', $station->id) }}" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+                        Show
+                    </a>
+                </div>
             </div>
         @endforeach
     </div>

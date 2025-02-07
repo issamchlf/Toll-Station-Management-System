@@ -17,10 +17,12 @@ class StationController extends Controller
         return view('stations', compact('stations'));
     }
 
-    public function show(Station $station)
+    public function show($id)
     {
-        //
+        $station = Station::with('vehicles')->findOrFail($id);
+        return view('stations.show', compact('station'));
     }
+    
     public function registerToll(Request $request){
         $request->validate([
             'license_plate' => 'required',
