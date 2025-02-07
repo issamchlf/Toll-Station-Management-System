@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Station;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class VehicleController extends Controller
@@ -91,18 +92,81 @@ class VehicleController extends Controller
         }
         $vehicle->delete();
         return response()->json(['message' => 'Vehicle deleted'], 200); 
+    
     }
-    public function passStation(string $id, string $station_id)
+        public function passStation(string $vehicle_id, string $station_id)
+        {
+            $vehicle = Vehicle::findOrFail($vehicle_id);
+            $station = Station::findOrFail($station_id);
+    
+            $fee = $vehicle->calculateFee();
+    
+            DB::table('station_vehicle')->insert([
+                'station_id' => $station->id,
+                'vehicle_id' => $vehicle->id,
+                'fee' => $fee,
+                'description' => "Toll charged from vehicle {$vehicle->license_plate}",
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+    
+            $station->increment('total_collected_fee', $fee);
+            $vehicle->increment('total_fee_paid', $fee);
+    
+            return response()->json([
+                'message' => "Vehicle {$vehicle->license_plate} pay {$fee} in the station {$station->name}",
+                'total_collected' => $station->total_collected_fee
+            ], 200);
+        }
+
+    
+
+    public function getVehiclesByStation($station_id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        if (!$vehicle) {
-            return response()->json(['message' => 'Vehicle not found'], 404);
-        }
         $station = Station::findOrFail($station_id);
-        if (!$station) {
-            return response()->json(['message' => 'Station not found'], 404);
-        }
-        $vehicle->stations()->attach($station->id);
-        return response()->json($vehicle, 200); 
+        $vehicles = $station->vehicles()->get();
+
+        return response()->json($vehicles, 200);
     }
+
+    public function getTotalCollected($station_id)
+    {
+        $station = Station::findOrFail($station_id);
+        return response()->json([
+            'station' => $station->name,
+            'total_collected_fee' => $station->total_collected_fee
+        ], 200);
+    }
+    public function assignRandomVehiclesToStations()
+{
+    $stations = Station::all();
+    $vehicles = Vehicle::all();
+
+    foreach ($stations as $station) {
+        $randomVehicles = $vehicles->random(rand(1, 5));
+
+        foreach ($randomVehicles as $vehicle) {
+            $fee = $vehicle->calculateFee();
+
+            if (!$station->vehicles->contains($vehicle->id)) {
+                $station->vehicles()->attach($vehicle->id, [
+                    'fee' => $fee,
+                    'description' => "Toll collected at {$station->name} from vehicle {$vehicle->license_plate}",
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                $station->increment('total_collected_fee', $fee);
+                $vehicle->increment('total_fee_paid', $fee);
+            }
+        }
+    }
+
+    return response()->json([
+        'message' => "Random vehicles have been assigned to stations with updated toll fees.",
+        'total_collected_fees' => Station::sum('total_collected_fee')
+    ], 200);
+}
+
+    
 }

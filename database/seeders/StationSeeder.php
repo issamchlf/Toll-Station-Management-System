@@ -5,12 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    use RefreshDatabase;
     public function run()
     {
         DB::table('stations')->insert([
@@ -46,6 +45,13 @@ class StationSeeder extends Seeder
                 'name' => 'Tokyo Station',
                 'city' => 'Tokyo',
                 'total_collected_fee' => 8000.00,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Central Station',
+                'city' => 'Sydney',
+                'total_collected_fee' => 4000.00,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -11,6 +11,8 @@ class Station extends Model
 
     public function vehicles()
     {
-        return $this->belongsToMany(Vehicle::class);
+        return $this->belongsToMany(Vehicle::class, 'station_vehicle')
+                    ->withPivot('fee', 'description')
+                    ->withTimestamps();
     }
 }

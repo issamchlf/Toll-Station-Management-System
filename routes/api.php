@@ -11,10 +11,11 @@ Route::get('/station/{id}', [StationController::class, 'show'])->name('station.s
 Route::put('/station/{id}', [StationController::class, 'update'])->name('station.update');
 Route::delete('/station/{id}', [StationController::class, 'destroy'])->name('station.destroy');
 
-Route::get('/station/{id}/vehicles', [StationController::class, 'vehicles'])->name('station.vehicles');
-Route::post('/station/{id}/vehicles', [StationController::class, 'registerVehicle'])->name('station.registerVehicle');
-Route::post('/station/{id}/toll', [StationController::class, 'registerToll'])->name('station.registerToll');
+Route::get('/station/{id}/vehicles', [VehicleController::class, 'getVehiclesByStation']);
+Route::get('/station/{id}/total-collected', [VehicleController::class, 'getTotalCollected']);
 Route::post("/vehicles/{id}/stations/{stationId}", [VehicleController::class, "passStation"])->name("apipassStation");
+Route::post('/assign-random-vehicles', [VehicleController::class, 'assignRandomVehiclesToStations']);
+
 
 Route::get('/vehicle', [VehicleController::class, 'index'])->name('vehicle.index');  
 Route::post('/vehicle', [VehicleController::class, 'store'])->name('vehicle.store');
