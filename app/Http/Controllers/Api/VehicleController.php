@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Station;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -90,5 +91,18 @@ class VehicleController extends Controller
         }
         $vehicle->delete();
         return response()->json(['message' => 'Vehicle deleted'], 200); 
+    }
+    public function passStation(string $id, string $station_id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        if (!$vehicle) {
+            return response()->json(['message' => 'Vehicle not found'], 404);
+        }
+        $station = Station::findOrFail($station_id);
+        if (!$station) {
+            return response()->json(['message' => 'Station not found'], 404);
+        }
+        $vehicle->stations()->attach($station->id);
+        return response()->json($vehicle, 200); 
     }
 }

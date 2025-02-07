@@ -14,7 +14,7 @@ Route::delete('/station/{id}', [StationController::class, 'destroy'])->name('sta
 Route::get('/station/{id}/vehicles', [StationController::class, 'vehicles'])->name('station.vehicles');
 Route::post('/station/{id}/vehicles', [StationController::class, 'registerVehicle'])->name('station.registerVehicle');
 Route::post('/station/{id}/toll', [StationController::class, 'registerToll'])->name('station.registerToll');
-
+Route::post("/vehicles/{id}/stations/{stationId}", [VehicleController::class, "passStation"])->name("apipassStation");
 
 Route::get('/vehicle', [VehicleController::class, 'index'])->name('vehicle.index');  
 Route::post('/vehicle', [VehicleController::class, 'store'])->name('vehicle.store');
