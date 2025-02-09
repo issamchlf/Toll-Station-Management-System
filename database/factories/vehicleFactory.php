@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\vehicle>
  */
-class vehicleFactory extends Factory
+class VehicleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,9 @@ class vehicleFactory extends Factory
         return [
             'license_plate' => strtoupper($this->faker->bothify('??###??')),
             'brand' => $this->faker->randomElement(['Toyota', 'Ford', 'Honda', 'Chevrolet', 'Nissan', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Audi', 'Kawasaki', 'Harley-Davidson', 'Ducati']),
-            'model' => $this->faker->randomElement(['Corolla', 'Mustang', 'Civic', 'Impala', 'Altima', 'X5', 'C-Class', 'Golf', 'A4', 'Ninja', 'Street Glide', 'Monster']),
+            'vehicle_type' => $this->faker->randomElement(['car', 'motorcycle', 'truck']),
             'axles' => $this->faker->randomNumber(0),
-            'total_fee_paid' => $this->faker->randomFloat(2, 0, 9999999999),
+            'total_fee_paid' => $this->faker->randomNumber(0),
         ];
     }
 }

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Models\Station;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vehicle extends Model
 {
-    protected $fillable = ['license_plate', 'brand', 'model', 'axles', 'total_fee_paid'];
+    use HasFactory;
+    protected $fillable = ['license_plate', 'brand', 'vehicle_type', 'axles', 'total_fee_paid'];
 
     public function stations()
     {

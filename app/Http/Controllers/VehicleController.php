@@ -16,9 +16,4 @@ class VehicleController extends Controller
         return view('vehicles', compact('vehicles'));
     }
 
-    public function show(Vehicle $vehicle)
-    {
-        //
-    }
-
 }
