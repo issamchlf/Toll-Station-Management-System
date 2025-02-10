@@ -7,6 +7,14 @@
             Back
         </a>
     </div>
+    <div class="mt-6">
+        <form method="POST" action="{{ route('assignRandomVehiclesToStations') }}">
+            @csrf
+            <button type="submit" class="bg-yellow-600 hover:bg-yellow-800 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300">
+                Assign Vehicles
+            </button>
+        </form>
+    </div>
 
     <h1 class="text-4xl font-extrabold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
         Toll Stations
@@ -43,5 +51,6 @@
             </div>
         @endforeach
     </div>
+    
 </div>
 @endsection

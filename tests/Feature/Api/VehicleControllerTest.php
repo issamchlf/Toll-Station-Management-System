@@ -15,7 +15,7 @@ class VehicleControllerTest extends TestCase
 
     public function test_CheckIfReceiveAllEntryOfVehicleInJsonFile()
     {
-        $vehicle = Vehicle::factory(1)->create();
+        $vehicle = Vehicle::factory()->count(1)->create();
         $response = $this->get(route('vehicleIndex'));
 
         $response->assertStatus(200)
@@ -42,7 +42,7 @@ class VehicleControllerTest extends TestCase
 
     public function test_CheckIfCanUpdateEntryInVehicleWithJson()
     {
-        $vehicle = Vehicle::factory(1)->create();
+        $vehicle = Vehicle::factory()->count(1)->create();
         $response = $this->putJson(route('vehicle.update', $vehicle[0]->id), [
             'license_plate' => 'XYZ-789',
             'brand' => 'Honda',
@@ -106,10 +106,10 @@ class VehicleControllerTest extends TestCase
     
         $response = $this->post(route('assignRandomVehiclesToStations'));
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                     'message',
-                     'total_collected_fees'
-                 ]);
+             ->assertViewIs('stations')
+                ->assertViewHas('stations')
+             ->assertViewHas('total_collected_fees');
+
     }
 
 }

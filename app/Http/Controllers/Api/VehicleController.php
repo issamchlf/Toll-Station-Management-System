@@ -162,10 +162,10 @@ class VehicleController extends Controller
         }
     }
 
-    return response()->json([
-        'message' => "Random vehicles have been assigned to stations with updated toll fees.",
+    return view('stations', [
+        'stations' => Station::with('vehicles')->get(),
         'total_collected_fees' => Station::sum('total_collected_fee')
-    ], 200);
+    ]);
 }
 
     
